@@ -49,7 +49,7 @@ final class LayerImageProvider {
             if let asset = imageAssets[imageLayer.imageReferenceID] {
                 imageLayer.image = imageProvider.imageForAsset(asset: asset)
                 
-                let changedAssets = ["user_profile"]
+                let changedAssets = ["user_profile.png"]
                 if changedAssets.contains(asset.name) {
                     let nsDocumentDirectory = FileManager.SearchPathDirectory.documentDirectory
                     let nsUserDomainMask = FileManager.SearchPathDomainMask.userDomainMask
