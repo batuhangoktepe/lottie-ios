@@ -43,11 +43,24 @@ final class LayerImageProvider {
     }
   }
 
-  func reloadImages() {
-    for imageLayer in imageLayers {
-      if let asset = imageAssets[imageLayer.imageReferenceID] {
-        imageLayer.image = imageProvider.imageForAsset(asset: asset)
-      }
+    func reloadImages() {
+        
+        for imageLayer in imageLayers {
+            if let asset = imageAssets[imageLayer.imageReferenceID] {
+                imageLayer.image = imageProvider.imageForAsset(asset: asset)
+                
+                if allAssets.contains(asset.name) {
+                    let changedAssets = ["user_profile"]
+                    let nsDocumentDirectory = FileManager.SearchPathDirectory.documentDirectory
+                    let nsUserDomainMask = FileManager.SearchPathDomainMask.userDomainMask
+                    let paths = NSSearchPathForDirectoriesInDomains(nsDocumentDirectory, nsUserDomainMask, true)
+                    if let dirPath = paths.first {
+                        let imageURL = URL(fileURLWithPath: dirPath).appendingPathComponent("userImage.png")
+                        let image    = UIImage(contentsOfFile: imageURL.path)
+                        imageLayer.image = image?.cgImage
+                    }
+                }
+            }
+        }
     }
-  }
 }
